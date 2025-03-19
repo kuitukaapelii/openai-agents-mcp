@@ -176,34 +176,33 @@ async def test_agent_with_mixed_tools(mock_mcp_aggregator_factory):
         return f"The weather in {location} is currently sunny and 72 degrees Fahrenheit."
 
     # Create MCP settings similar to the mcp_agent.config.yaml example
-    mcp_settings = MCPSettings(
-        servers={
-            "fetch": MCPServerSettings(
-                command="mock_fetch",
-                args=["--arg1", "--arg2"],
-            ),
-            "filesystem": MCPServerSettings(
-                command="mock_filesystem",
-                args=["--path", "."],
-            ),
-        }
-    )
+    # mcp_settings = MCPSettings(
+    #     servers={
+    #         "fetch": MCPServerSettings(
+    #             command="mock_fetch",
+    #             args=["--arg1", "--arg2"],
+    #         ),
+    #         "filesystem": MCPServerSettings(
+    #             command="mock_filesystem",
+    #             args=["--path", "."],
+    #         ),
+    #     }
+    # )
 
-    # Create a runner context with our settings
-    runner_context = RunnerContext(mcp_config=mcp_settings)
+    # # Create a runner context with our settings
+    # runner_context = RunnerContext(mcp_config=mcp_settings)
 
     # Create an agent with both local and MCP tools
     agent = Agent(
         name="MCP Assistant",
         instructions="You are a helpful assistant with access to both local and MCP tools.",
         tools=[get_current_weather],  # Local tool
-        mcp_servers=["fetch", "filesystem"],  # MCP tools
+        mcp_servers=["fetch", "filesystem"],  # MCP tools,
     )
 
     # Mock the MCP initialization to avoid actual server process spawning
     with patch("agents_mcp.agent.initialize_mcp_aggregator", return_value=mock_aggregator):
         # Mock the loading of MCP tools to track calls
-        original_load_tools = agent.load_mcp_tools
         agent.load_mcp_tools = AsyncMock()
 
         # Setup expected MCP tools list for when load_mcp_tools is called
@@ -323,15 +322,15 @@ async def test_agent_with_tool_error_handling(mock_mcp_aggregator_factory):
     )
 
     # Create MCP settings
-    mcp_settings = MCPSettings(
-        servers={
-            "fetch": MCPServerSettings(command="mock", args=["fetch"]),
-            "filesystem": MCPServerSettings(command="mock", args=["filesystem"]),
-        }
-    )
+    # mcp_settings = MCPSettings(
+    #     servers={
+    #         "fetch": MCPServerSettings(command="mock", args=["fetch"]),
+    #         "filesystem": MCPServerSettings(command="mock", args=["filesystem"]),
+    #     }
+    # )
 
-    # Create context
-    runner_context = RunnerContext(mcp_config=mcp_settings)
+    # # Create context
+    # runner_context = RunnerContext(mcp_config=mcp_settings)
 
     # Create agent with MCP tools
     agent = Agent(
