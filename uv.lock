@@ -916,7 +916,7 @@ wheels = [
 
 [[package]]
 name = "openai-agents-mcp"
-version = "0.0.3"
+version = "0.0.5"
 source = { editable = "." }
 dependencies = [
     { name = "mcp-agent" },
@@ -935,7 +935,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "mcp-agent", specifier = ">=0.0.9" },
-    { name = "openai-agents", specifier = ">=0.0.4" },
+    { name = "openai-agents", specifier = ">=0.0.5" },
 ]
 
 [package.metadata.requires-dev]

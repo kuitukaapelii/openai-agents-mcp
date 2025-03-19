@@ -255,7 +255,7 @@ async for event in result.stream_events():
         print(event.data.delta, end="", flush=True)
 ```
 
-See [hello_world_mcp_streamed.py](examples/mcp/basic/hello_world_streamed.py) for the complete example.
+See [hello_world_mcp_streamed.py](examples/hello_world_mcp_streamed.py) for the complete example.
 
 ## Acknowledgements
 

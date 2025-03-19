@@ -4,10 +4,11 @@ from collections.abc import Awaitable
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING, Callable, Generic
 
-from agents import Agent as BaseAgent, _utils
+from agents import Agent as BaseAgent
 from agents.items import ItemHelpers
 from agents.run_context import RunContextWrapper, TContext
 from agents.tool import Tool, function_tool
+from agents.util import _transforms
 
 from .agent_hooks import MCPAgentHooks
 from .aggregator import initialize_mcp_aggregator
@@ -153,7 +154,7 @@ class Agent(BaseAgent, Generic[TContext]):
         """
 
         @function_tool(
-            name_override=tool_name or _utils.transform_string_function_style(self.name),
+            name_override=tool_name or _transforms.transform_string_function_style(self.name),
             description_override=tool_description or "",
         )
         async def run_agent(context: RunContextWrapper, input: str) -> str:
