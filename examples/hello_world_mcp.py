@@ -18,11 +18,11 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     pass
 
-from agents import Runner, function_tool
+from agents import Runner, enable_verbose_stdout_logging, function_tool
 
 from agents_mcp import Agent, RunnerContext
 
-# enable_verbose_stdout_logging()
+enable_verbose_stdout_logging()
 
 
 # Define a simple local tool to demonstrate combining local and MCP tools

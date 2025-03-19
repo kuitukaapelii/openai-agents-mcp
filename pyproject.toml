@@ -36,6 +36,7 @@ dev = [
     "pytest",
     "pytest-asyncio",
     "pytest-mock>=3.14.0",
+    "coverage>=7.7.0",
 ]
 
 [tool.uv.workspace]
@@ -78,6 +79,23 @@ strict = true
 disallow_incomplete_defs = false
 disallow_untyped_defs = false
 disallow_untyped_calls = false
+
+[tool.coverage.run]
+source = [
+    "tests",
+    "src/agents_mcp",
+]
+
+[tool.coverage.report]
+show_missing = true
+sort = "-Cover"
+exclude_also = [
+    # This is only executed while typechecking
+    "if TYPE_CHECKING:",
+    "@abc.abstractmethod",
+    "raise NotImplementedError",
+    "logger.debug",
+]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"  
