@@ -4,6 +4,14 @@ This package extends the [OpenAI Agents SDK](https://github.com/openai/openai-ag
 
 The project is built using the [mcp-agent](https://github.com/lastmile-ai/mcp-agent) library.
 
+<p align="center">
+<a href="https://pypi.org/project/openai-agents-mcp/"><img src="https://img.shields.io/pypi/v/openai-agents-mcp?color=%2334D058&label=pypi" /></a>
+<a href="https://github.com/lastmile-ai/openai-agents-mcp/issues"><img src="https://img.shields.io/github/issues-raw/lastmile-ai/openai-agents-mcp" /></a>
+<a href="https://lmai.link/discord/mcp-agent"><img src="https://shields.io/discord/1089284610329952357" alt="discord" /></a>
+<img alt="Pepy Total Downloads" src="https://img.shields.io/pepy/dt/openai-agents-mcp?label=pypi%20%7C%20downloads"/>
+<a href="https://github.com/lastmile-ai/openai-agents-mcp/blob/main/LICENSE"><img src="https://img.shields.io/pypi/l/openai-agents-mcp" /></a>
+</p>
+
 ## Features
 
 - Connect OpenAI Agents to MCP servers
