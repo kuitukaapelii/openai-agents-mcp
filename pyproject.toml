@@ -1,7 +1,7 @@
 [project]
 name = "openai-agents-mcp"
-version = "0.0.3"
-description = "MCP (Model Context Protocol) extension for OpenAI Agents SDK"
+version = "0.0.5"
+description = "MCP (Model Context Protocol) extension for OpenAI Agents SDK, built using mcp-agent"
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
@@ -9,7 +9,7 @@ authors = [
     { name = "Sarmad Qadri", email = "sarmad@lastmileai.dev" },
 ]
 dependencies = [
-    "openai-agents>=0.0.4",
+    "openai-agents>=0.0.5",
     "mcp-agent>=0.0.9",
 ]
 classifiers = [
