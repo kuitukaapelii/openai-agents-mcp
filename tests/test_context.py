@@ -63,7 +63,7 @@ def test_runner_context_initialization():
     )
     context = RunnerContext(mcp_config=settings)
     assert context.mcp_config is settings
-    
+
     # Test with additional custom attributes
     context = RunnerContext(mcp_config=settings, custom_attr="custom_value", another_attr=123)
     assert context.mcp_config is settings

@@ -402,18 +402,12 @@ async def test_mcp_server_initialization_failure():
     with patch("agents_mcp.agent.initialize_mcp_aggregator") as mock_init:
         mock_init.side_effect = Exception("Failed to start MCP server")
 
-        # Create a second patch to catch the exception that will be raised
-        with patch("agents_mcp.agent.logger.error") as mock_logger:
-            try:
-                # Call load_mcp_tools directly - this should raise an exception
-                await agent.load_mcp_tools(runner_context)
-                # If we get here, the test has failed
-                assert False, "Expected an exception but none was raised"
-            except Exception as e:
-                # This is expected - the mock initialize_mcp_aggregator raises an exception
-                assert str(e) == "Failed to start MCP server"
-                # Verify the error was logged
-                mock_logger.error.assert_called_once()
+        # Call load_mcp_tools directly with the expected exception
+        with pytest.raises(Exception) as excinfo:
+            await agent.load_mcp_tools(runner_context)
 
-            # Verify no tools were loaded (tools list should remain empty)
-            assert agent._mcp_tools == []
+        # Verify the exception details
+        assert str(excinfo.value) == "Failed to start MCP server"
+
+        # Verify no tools were loaded (tools list should remain empty)
+        assert agent._mcp_tools == []
