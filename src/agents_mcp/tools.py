@@ -2,9 +2,9 @@
 
 from typing import Any, Union
 
-from agents import _utils
 from agents.run_context import RunContextWrapper, TContext
 from agents.tool import FunctionTool, Tool
+from agents.util import _transforms
 from mcp.types import EmbeddedResource, ImageContent, TextContent
 
 from .logger import logger
@@ -142,7 +142,7 @@ def mcp_tool_to_function_tool(mcp_tool: Any, server_aggregator: Any) -> Function
     Convert an MCP tool to an OpenAI Agent SDK function tool.
     """
     # Create a properly named wrapper function
-    function_name = _utils.transform_string_function_style(mcp_tool.name)
+    function_name = _transforms.transform_string_function_style(mcp_tool.name)
 
     # Create a wrapper factory to ensure each tool gets its own closure
     def create_wrapper(current_tool_name: str, current_tool_desc: str):
