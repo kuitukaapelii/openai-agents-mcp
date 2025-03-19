@@ -76,6 +76,10 @@ mcp:
 
 Head over to the [examples](./examples) directory to see MCP servers in action with Agents SDK.
 
+### Demo
+
+https://github.com/user-attachments/assets/1d2a843d-2f99-41f2-8671-4c7940ec48f5
+
 More details and nuances below.
 
 ## Using MCP servers in Agents SDK
