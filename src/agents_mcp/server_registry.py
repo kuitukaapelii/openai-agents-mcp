@@ -1,5 +1,7 @@
 """Functions for managing MCP server registry."""
 
+from typing import Any, Optional, cast
+
 from agents.run_context import RunContextWrapper, TContext
 from mcp_agent.config import MCPSettings, Settings, get_settings
 from mcp_agent.mcp_server_registry import ServerRegistry
@@ -20,7 +22,7 @@ def load_mcp_server_registry(
             if config is unspecified, this is required.
     """
     try:
-        settings: Settings = None
+        settings: Optional[Settings] = None
         if config:
             # Use provided settings object
             logger.debug("Loading MCP server registry from provided MCPSettings object.")
@@ -55,17 +57,18 @@ def ensure_mcp_server_registry_in_context(
         force: Whether to force reload the server registry
     """
     # Check if server registry is already loaded
-    server_registry = getattr(run_context.context, "mcp_server_registry", None)
+    context_obj = cast(Any, run_context.context)
+    server_registry = getattr(context_obj, "mcp_server_registry", None)
     if not force and server_registry:
         logger.debug("MCP server registry already loaded in context. Skipping reload.")
-        return server_registry
+        return cast(ServerRegistry, server_registry)
 
     # Load the server registry
-    config = getattr(run_context.context, "mcp_config", None)
-    config_path = getattr(run_context.context, "mcp_config_path", None)
+    config = getattr(context_obj, "mcp_config", None)
+    config_path = getattr(context_obj, "mcp_config_path", None)
     server_registry = load_mcp_server_registry(config=config, config_path=config_path)
 
     # Attach the server registry to the context
-    run_context.context.mcp_server_registry = server_registry
+    context_obj.mcp_server_registry = server_registry
 
     return server_registry

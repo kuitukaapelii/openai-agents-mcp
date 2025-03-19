@@ -23,7 +23,7 @@ if TYPE_CHECKING:
 
 
 @dataclass
-class Agent(BaseAgent, Generic[TContext]):
+class Agent(BaseAgent, Generic[TContext]):  # type: ignore[misc]
     """
     Extends the OpenAI Agent SDK's Agent class with MCP support.
 
@@ -75,7 +75,7 @@ class Agent(BaseAgent, Generic[TContext]):
 
         # Create a wrapper around the original hooks to inject MCP tool loading
         self._original_hooks = self.hooks
-        self.hooks = MCPAgentHooks(agent=self, original_hooks=self._original_hooks)
+        self.hooks: MCPAgentHooks = MCPAgentHooks(agent=self, original_hooks=self._original_hooks)
 
     async def load_mcp_tools(
         self, run_context: RunContextWrapper[TContext], force: bool = False
@@ -175,6 +175,6 @@ class Agent(BaseAgent, Generic[TContext]):
             if custom_output_extractor:
                 return await custom_output_extractor(output)
 
-            return ItemHelpers.text_message_outputs(output.new_items)
+            return ItemHelpers.text_message_outputs(output.new_items)  # type: ignore # We know this returns a string
 
         return run_agent

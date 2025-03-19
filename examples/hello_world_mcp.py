@@ -64,7 +64,7 @@ async def main():
 
     # Create an agent with specific MCP servers you want to use
     # These must be defined in your mcp_agent.config.yaml file
-    agent = Agent(
+    agent: Agent = Agent(
         name="MCP Assistant",
         instructions="""You are a helpful assistant with access to both local tools
             and tools from MCP servers. Use these tools to help the user.""",

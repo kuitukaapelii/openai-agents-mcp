@@ -7,7 +7,7 @@ from agents.tool import FunctionTool, Tool
 from agents.util import _transforms
 from mcp.types import EmbeddedResource, ImageContent, TextContent
 
-from .logger import logger
+from agents_mcp.logger import logger
 
 # Type alias for MCP content types
 MCPContent = Union[TextContent, ImageContent, EmbeddedResource]
@@ -63,13 +63,19 @@ def sanitize_json_schema_for_openai(schema: dict[str, Any]) -> dict[str, Any]:
             result[key] = [
                 sanitize_json_schema_for_openai(item) if isinstance(item, dict) else item
                 for item in value
-            ]
+            ]  # type: ignore # mypy doesn't understand this is still a valid dict value
         else:
             result[key] = value
 
     # Special handling for the properties/required issue
     # OpenAI requires all properties to be in the required array
-    if "type" in result and result["type"] == "object" and "properties" in result:
+    result_type = result.get("type")
+    if (
+        "type" in result
+        and isinstance(result_type, str)
+        and result_type == "object"
+        and "properties" in result
+    ):
         # Get all property names
         property_names = list(result.get("properties", {}).keys())
 
@@ -94,7 +100,7 @@ def mcp_content_to_text(content: Union[MCPContent, list[MCPContent]]) -> str:
     """
     # Handle list of content items
     if isinstance(content, list):
-        text_parts = []
+        text_parts: list[str] = []
         for item in content:
             if hasattr(item, "type") and item.type == "text" and hasattr(item, "text"):
                 # Text content
@@ -128,7 +134,7 @@ def mcp_content_to_text(content: Union[MCPContent, list[MCPContent]]) -> str:
     elif hasattr(content, "resource"):
         resource = content.resource
         if hasattr(resource, "text"):
-            return resource.text
+            return str(resource.text)  # Ensure string return
         elif hasattr(resource, "blob"):
             mime_type = getattr(resource, "mimeType", "unknown type")
             return f"[Resource: {mime_type}]"
@@ -146,7 +152,7 @@ def mcp_tool_to_function_tool(mcp_tool: Any, server_aggregator: Any) -> Function
 
     # Create a wrapper factory to ensure each tool gets its own closure
     def create_wrapper(current_tool_name: str, current_tool_desc: str):
-        async def wrapper_fn(ctx: RunContextWrapper[TContext], **kwargs: Any) -> Any:
+        async def wrapper_fn(ctx: RunContextWrapper[TContext], **kwargs: Any) -> str:
             """MCP Tool wrapper function."""
             if not server_aggregator or server_aggregator.initialized is False:
                 raise RuntimeError(
@@ -210,9 +216,8 @@ def mcp_tool_to_function_tool(mcp_tool: Any, server_aggregator: Any) -> Function
                 # Call the wrapper function with the arguments
                 result = await current_wrapper_fn(run_context, **args)
 
-                # Since wrapper_fn now returns string content (via mcp_content_to_text),
-                # we should already have a properly formatted string result
-                return result
+                # Ensure we return a string
+                return str(result)
             except Exception as e:
                 # Log the error
                 logger.error(f"Error invoking MCP tool {current_tool_name}: {e}")

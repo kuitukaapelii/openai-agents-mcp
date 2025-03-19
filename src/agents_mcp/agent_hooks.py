@@ -1,9 +1,10 @@
 from __future__ import annotations
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, Generic
 
 from agents.lifecycle import AgentHooks
 from agents.run_context import RunContextWrapper, TContext
+from agents.tool import Tool
 
 from .server_registry import ensure_mcp_server_registry_in_context
 
@@ -11,7 +12,7 @@ if TYPE_CHECKING:
     from .agent import Agent
 
 
-class MCPAgentHooks(AgentHooks[TContext]):
+class MCPAgentHooks(AgentHooks, Generic[TContext]):  # type: ignore[misc]
     """
     Agent hooks for MCP agents. This class acts as a passthrough for any existing hooks, while
     also loading MCP tools on agent start.
@@ -21,47 +22,52 @@ class MCPAgentHooks(AgentHooks[TContext]):
         self.original_hooks = original_hooks
         self.agent = agent
 
-    async def on_start(
-        self, context_wrapper: RunContextWrapper[TContext], agent_instance: Any
-    ) -> None:
+    async def on_start(self, context: RunContextWrapper[TContext], agent: Agent) -> None:
         # First load MCP tools if needed
         if hasattr(self.agent, "mcp_servers") and self.agent.mcp_servers:
             # Ensure MCP server registry is in context
-            ensure_mcp_server_registry_in_context(context_wrapper)
+            ensure_mcp_server_registry_in_context(context)
 
             # Load MCP tools
-            await self.agent.load_mcp_tools(context_wrapper)
+            await self.agent.load_mcp_tools(context)
 
         # Then call the original hooks if they exist
         if self.original_hooks:
-            await self.original_hooks.on_start(context_wrapper, agent_instance)
+            await self.original_hooks.on_start(context, agent)
 
-    async def on_tool_call(
-        self, context_wrapper: RunContextWrapper[TContext], call: Any, index: int
+    async def on_end(
+        self,
+        context: RunContextWrapper[TContext],
+        agent: Agent,
+        output: Any,
     ) -> None:
         if self.original_hooks:
-            await self.original_hooks.on_tool_call(context_wrapper, call, index)
+            await self.original_hooks.on_end(context, agent, output)
 
-    async def on_tool_result(
-        self, context_wrapper: RunContextWrapper[TContext], result: Any, index: int
+    async def on_handoff(
+        self,
+        context: RunContextWrapper[TContext],
+        agent: Agent,
+        source: Agent,
     ) -> None:
         if self.original_hooks:
-            await self.original_hooks.on_tool_result(context_wrapper, result, index)
+            await self.original_hooks.on_handoff(context, agent, source)
 
-    async def on_model_response(
-        self, context_wrapper: RunContextWrapper[TContext], response: Any
+    async def on_tool_start(
+        self,
+        context: RunContextWrapper[TContext],
+        agent: Agent,
+        tool: Tool,
     ) -> None:
         if self.original_hooks:
-            await self.original_hooks.on_model_response(context_wrapper, response)
+            await self.original_hooks.on_tool_start(context, agent, tool)
 
-    async def on_agent_response(
-        self, context_wrapper: RunContextWrapper[TContext], response: Any
+    async def on_tool_end(
+        self,
+        context: RunContextWrapper[TContext],
+        agent: Agent,
+        tool: Tool,
+        result: str,
     ) -> None:
         if self.original_hooks:
-            await self.original_hooks.on_agent_response(context_wrapper, response)
-
-    async def on_agent_finish(
-        self, context_wrapper: RunContextWrapper[TContext], output: Any
-    ) -> None:
-        if self.original_hooks:
-            await self.original_hooks.on_agent_finish(context_wrapper, output)
+            await self.original_hooks.on_tool_end(context, agent, tool, result)

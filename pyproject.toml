@@ -80,6 +80,24 @@ strict = true
 disallow_incomplete_defs = false
 disallow_untyped_defs = false
 disallow_untyped_calls = false
+disallow_untyped_decorators = false
+
+# Disable errors for 3rd-party packages without stubs
+[[tool.mypy.overrides]]
+module = [
+    "agents.*",
+    "mcp_agent.*"
+]
+ignore_missing_imports = true
+
+# Ignore errors in tests/
+[[tool.mypy.overrides]]
+module = [
+    "tests.*",
+]
+ignore_errors = true
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
 
 [tool.coverage.run]
 source = [

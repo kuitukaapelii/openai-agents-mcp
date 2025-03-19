@@ -13,7 +13,7 @@ To use this example:
 
 import asyncio
 import time
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Optional
 
 from openai.types.responses import ResponseTextDeltaEvent
 
@@ -31,7 +31,9 @@ from agents_mcp import Agent, RunnerContext
 class AgentContext:
     """Context class for the agent that can hold MCP settings."""
 
-    def __init__(self, mcp_config_path: str = None, mcp_config: "MCPSettings" = None):
+    def __init__(
+        self, mcp_config_path: str | None = None, mcp_config: Optional["MCPSettings"] = None
+    ):
         """
         Initialize the context.
 
@@ -52,7 +54,7 @@ async def main():
 
     # Create an agent that specifies which MCP servers to use
     # Make sure these are defined in your mcp_agent.config.yaml file
-    agent = Agent(
+    agent: Agent = Agent(
         name="Slack Agent",
         instructions="""You are an agent with access to the filesystem,
         as well as the ability to look up Slack conversations. Your job is to identify

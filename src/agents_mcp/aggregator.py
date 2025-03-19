@@ -31,7 +31,7 @@ def create_mcp_aggregator(
         raise RuntimeError("No MCP servers specified. No MCP aggregator created.")
 
     # Get or create the server registry from the context
-    context: Context = None
+    context: Context | None = None
     if server_registry:
         context = Context(server_registry=server_registry)
     else:

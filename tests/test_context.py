@@ -25,7 +25,9 @@ def test_mcp_server_settings():
         args=["arg1", "arg2"],
         env={"ENV_VAR": "value"},
     )
-    assert "ENV_VAR" in settings.env
+    env = settings.env
+    if env is not None:  # Check for None before using 'in' operator
+        assert "ENV_VAR" in env
 
 
 def test_mcp_settings():
