@@ -1,7 +1,7 @@
 [project]
 name = "openai-agents-mcp"
 version = "0.0.3"
-description = "MCP-compatible fork of OpenAI Agents SDK"
+description = "MCP (Model Context Protocol) extension for OpenAI Agents SDK"
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
@@ -9,19 +9,13 @@ authors = [
     { name = "Sarmad Qadri", email = "sarmad@lastmileai.dev" },
 ]
 dependencies = [
-    "openai>=1.66.2",
-    "pydantic>=2.10, <3",
-    "griffe>=1.5.6, <2",
-    "typing-extensions>=4.12.2, <5",
-    "requests>=2.0, <3",
-    "types-requests>=2.0, <3",
-    "mcp-agent>=0.0.8",
+    "openai-agents>=0.0.4",
+    "mcp-agent>=0.0.9",
 ]
 classifiers = [
     "Typing :: Typed",
     "Intended Audience :: Developers",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -42,26 +36,20 @@ dev = [
     "pytest",
     "pytest-asyncio",
     "pytest-mock>=3.14.0",
-    "rich",
-    "mkdocs>=1.6.0",
-    "mkdocs-material>=9.6.0",
-    "mkdocstrings[python]>=0.28.0",
-    "coverage>=7.6.12",
-    "playwright==1.50.0",
 ]
+
 [tool.uv.workspace]
-members = ["agents"]
+members = ["agents_mcp"]
 
 [tool.uv.sources]
-agents = { workspace = true }
+agents_mcp = { workspace = true }
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/agents"]
-
+packages = ["src/agents_mcp"]
 
 [tool.ruff]
 line-length = 100
@@ -77,7 +65,7 @@ select = [
     "C4",  # flake8-comprehensions
     "UP",  # pyupgrade
 ]
-isort = { combine-as-imports = true, known-first-party = ["agents"] }
+isort = { combine-as-imports = true, known-first-party = ["agents_mcp"] }
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
@@ -91,30 +79,6 @@ disallow_incomplete_defs = false
 disallow_untyped_defs = false
 disallow_untyped_calls = false
 
-[tool.coverage.run]
-source = [
-    "tests",
-    "src/agents",
-]
-
-[tool.coverage.report]
-show_missing = true
-sort = "-Cover"
-exclude_also = [
-    # This is only executed while typechecking
-    "if TYPE_CHECKING:",
-    "@abc.abstractmethod",
-    "raise NotImplementedError",
-    "logger.debug",
-]
-
 [tool.pytest.ini_options]
 asyncio_mode = "auto"  
 asyncio_default_fixture_loop_scope = "session"
-filterwarnings = [
-    # This is a warning that is expected to happen: we have an async filter that raises an exception
-    "ignore:coroutine 'test_async_input_filter_fails.<locals>.invalid_input_filter' was never awaited:RuntimeWarning",
-]
-markers = [
-    "allow_call_model_methods: mark test as allowing calls to real model implementations",
-]
