@@ -70,7 +70,9 @@ async def test_on_end_calls_original_hook(mcp_hooks, run_context_wrapper):
     await mcp_hooks.on_end(run_context_wrapper, mcp_hooks.agent, output)
 
     # Verify original hook was called
-    mcp_hooks.original_hooks.on_end.assert_called_once_with(run_context_wrapper, mcp_hooks.agent, output)
+    mcp_hooks.original_hooks.on_end.assert_called_once_with(
+        run_context_wrapper, mcp_hooks.agent, output
+    )
 
 
 @pytest.mark.asyncio
