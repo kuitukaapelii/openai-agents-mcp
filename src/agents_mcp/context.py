@@ -25,7 +25,7 @@ class RunnerContext:
     the default discovery process will look for the config file matching
     "mcp_agent.config.yaml" recursively up from the current working directory."""
 
-    def __init__(self, mcp_config=None, mcp_config_path=None, **kwargs):
+    def __init__(self, mcp_config: MCPSettings = None, mcp_config_path: str = None, **kwargs):
         """
         Initialize the context with MCP settings and any additional attributes.
 

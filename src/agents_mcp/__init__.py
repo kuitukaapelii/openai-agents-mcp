@@ -20,6 +20,8 @@ but you can now use tools from MCP servers alongside local tools:
     )
 """
 
+from mcp_agent.config import MCPServerSettings, MCPSettings
+
 from .agent import Agent
 from .context import RunnerContext
 from .server_registry import (
@@ -30,6 +32,8 @@ from .server_registry import (
 __all__ = [
     "Agent",
     "RunnerContext",
+    "MCPServerSettings",
+    "MCPSettings",
     "ensure_mcp_server_registry_in_context",
     "load_mcp_server_registry",
 ]
