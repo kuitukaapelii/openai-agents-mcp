@@ -1,6 +1,6 @@
 [project]
 name = "openai-agents-mcp"
-version = "0.0.6"
+version = "0.0.7"
 description = "MCP (Model Context Protocol) extension for OpenAI Agents SDK, built using mcp-agent"
 readme = "README.md"
 requires-python = ">=3.10"
