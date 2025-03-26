@@ -712,7 +712,7 @@ wheels = [
 
 [[package]]
 name = "mcp-agent"
-version = "0.0.9"
+version = "0.0.13"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "fastapi" },
@@ -728,9 +728,9 @@ dependencies = [
     { name = "scikit-learn" },
     { name = "typer" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/b7/3d/53031c83f5a19c5618b81e832918a82c341de3948a8814c1db8713331b24/mcp_agent-0.0.9.tar.gz", hash = "sha256:3316118817edd18eddc137faee4fa1c658c2e144fd4258bd33ce6a7823b8eba1", size = 8596882 }
+sdist = { url = "https://files.pythonhosted.org/packages/b8/62/54ecfa806e4b339cb595cd625445032821e13432c002adf2e1b3d74b9c14/mcp_agent-0.0.13.tar.gz", hash = "sha256:176d3d9d53f1a5a473e97fbed0f8f2e503f45673bc30d04848ef2d1348388043", size = 8599548 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ba/42/585c4771300ecc0221b8039a57bc0dce7ec1cf12f534205e6d2c47c2d9b8/mcp_agent-0.0.9-py3-none-any.whl", hash = "sha256:e10be85fd60fb02fbac1e838c0ae991bae5214df1b68d4bd1c4fd6ca43203554", size = 154147 },
+    { url = "https://files.pythonhosted.org/packages/d8/74/28b718eed04db6c3f1505f65492ea36ee232231f276d3acace3f21912195/mcp_agent-0.0.13-py3-none-any.whl", hash = "sha256:969f6fe33da74b3d00c78fc0971fae8555a2d23a9c6339c395f0657dfb7f2293", size = 156699 },
 ]
 
 [[package]]
@@ -976,7 +976,7 @@ wheels = [
 
 [[package]]
 name = "openai-agents-mcp"
-version = "0.0.7"
+version = "0.0.8"
 source = { editable = "." }
 dependencies = [
     { name = "mcp-agent" },
@@ -995,7 +995,7 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "mcp-agent", specifier = ">=0.0.9" },
+    { name = "mcp-agent", specifier = ">=0.0.13" },
     { name = "openai-agents", specifier = ">=0.0.5" },
 ]
 

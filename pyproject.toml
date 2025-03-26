@@ -1,6 +1,6 @@
 [project]
 name = "openai-agents-mcp"
-version = "0.0.7"
+version = "0.0.8"
 description = "MCP (Model Context Protocol) extension for OpenAI Agents SDK, built using mcp-agent"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -10,7 +10,7 @@ authors = [
 ]
 dependencies = [
     "openai-agents>=0.0.5",
-    "mcp-agent>=0.0.9",
+    "mcp-agent>=0.0.13",
 ]
 classifiers = [
     "Typing :: Typed",
