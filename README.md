@@ -24,7 +24,7 @@ python -m venv env
 source env/bin/activate
 ```
 
-2. Install Agents SDK
+1. Install Agents SDK
 
 ```
 pip install openai-agents
@@ -144,11 +144,12 @@ The Agents SDK is designed to be highly flexible, allowing you to model a wide r
 
 ## Tracing
 
-The Agents SDK automatically traces your agent runs, making it easy to track and debug the behavior of your agents. Tracing is extensible by design, supporting custom spans and a wide variety of external destinations, including [Logfire](https://logfire.pydantic.dev/docs/integrations/llms/openai/#openai-agents), [AgentOps](https://docs.agentops.ai/v1/integrations/agentssdk), [Braintrust](https://braintrust.dev/docs/guides/traces/integrations#openai-agents-sdk), [Scorecard](https://docs.scorecard.io/docs/documentation/features/tracing#openai-agents-sdk-integration), and [Keywords AI](https://docs.keywordsai.co/integration/development-frameworks/openai-agent). For more details about how to customize or disable tracing, see [Tracing](http://openai.github.io/openai-agents-python/tracing), which also includes a larger list of [external tracing processors](http://openai.github.io/openai-agents-python/tracing/#external-tracing-processors-list).
+The Agents SDK automatically traces your agent runs, making it easy to track and debug the behavior of your agents. Tracing is extensible by design, supporting custom spans and a wide variety of external destinations, including [
+Logfire](https://logfire.pydantic.dev/docs/integrations/llms/openai/#openai-agents), [AgentOps](https://docs.agentops.ai/v1/integrations/agentssdk), [Braintrust](https://braintrust.dev/docs/guides/traces/integrations#openai-agents-sdk), [Scorecard](https://docs.scorecard.io/docs/documentation/features/tracing#openai-agents-sdk-integration), and [Keywords AI](https://docs.keywordsai.co/integration/development-frameworks/openai-agent). For more details about how to customize or disable tracing, see [Tracing](http://openai.github.io/openai-agents-python/tracing), which also includes a larger list of [external tracing processors](http://openai.github.io/openai-agents-python/tracing/#external-tracing-processors-list).
 
 ## Development (only needed if you need to edit the SDK/examples)
 
-0. Ensure you have [`uv`](https://docs.astral.sh/uv/) installed.
+1. Ensure you have [`uv`](https://docs.astral.sh/uv/) installed.
 
 ```bash
 uv --version
@@ -160,7 +161,7 @@ uv --version
 make sync
 ```
 
-2. (After making changes) lint/test
+1. (After making changes) lint/test
 
 ```
 make tests  # run tests
