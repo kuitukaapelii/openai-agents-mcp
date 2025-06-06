@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Unnamed" type="AppEngineRunConfiguration" factoryName="App Engine DevAppServer" singleton="false" nameIsGenerated="true">
+    <module name="openai-agents-mcp" />
+    <setting name="serverAddress" value="" />
+    <setting name="sdkPath" value="file://$USER_HOME$" />
+    <setting name="serverPort" value="" />
+    <setting name="vmArgs" value="" />
+    <setting name="warPath" value="C:\Users\olli\Documents\GitHub\openai-agents-mcp" />
+    <setting name="sync" value="true" />
+    <setting name="disableUpdateCheck" value="false" />
+    <method v="2">
+      <option name="AppEngine.Gradle.BeforeRunTask" enabled="true" tasks=":assemble" />
+    </method>
+  </configuration>
+</component>
